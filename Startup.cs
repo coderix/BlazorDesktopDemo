@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BlazorDesktopDemo.Data;
+using ElectronNET.API;
 
 namespace BlazorDesktopDemo
 {
@@ -33,6 +34,7 @@ namespace BlazorDesktopDemo
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+
         {
             if (env.IsDevelopment())
             {
@@ -55,6 +57,13 @@ namespace BlazorDesktopDemo
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+            ElectronBootstrap();
+        }
+        void ElectronBootstrap(){
+         Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
         }
     }
+    
+
+    
 }
