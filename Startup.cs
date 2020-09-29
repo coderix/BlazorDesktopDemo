@@ -57,7 +57,10 @@ namespace BlazorDesktopDemo
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
-            ElectronBootstrap();
+            if(HybridSupport.IsElectronActive){
+                ElectronBootstrap();
+            }         
+            
         }
         void ElectronBootstrap(){
          Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
