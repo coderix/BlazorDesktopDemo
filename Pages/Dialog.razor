@@ -1,0 +1,105 @@
+@page "/Dialogs"
+<h2>WElcome to Dialogs</h2>
+<div class="row">
+     <div class="col-4">
+         <h3>Message Box Dialog</h3>
+         <button class="btn btn-success" @onclick="ShowMessageBoxAsync">Show Message Box</button>
+     </div>
+     <div class="col-4">
+         <h3>Save File Dialog</h3>
+         <button class="btn btn-warning" @onclick="ShowSaveFileDialogAsync">Show Save File Dialog</button>
+         <p>@filePath</p>
+     </div>
+     <div class="col-4">
+         <h3>Open File Dialog</h3>
+         <button class="btn btn-primary" @onclick="ShowOpenFileDialogAsync">Show Open File Dialog</button>
+         <ul>
+             @foreach (var file in selectedFiles)
+             {
+                <li>@file</li> 
+             }
+         </ul>
+         
+     </div>
+</div>
+@code
+{
+    async Task ShowMessageBoxAsync(){
+        await Electron.Dialog.ShowMessageBoxAsync("Hello World from Electron");
+    }
+
+    string filePath = string.Empty;
+    async Task ShowSaveFileDialogAsync(){
+        var options = new SaveDialogOptions
+        {
+         Title = "Choos a path to save the file" ,
+         Filters = new []
+         {
+             new FileFilter
+             {
+                 Name = "JSON Files",
+                 Extensions = new[]{"json"}
+             },
+             new FileFilter
+             {
+                 Name = "XML Files",
+                 Extensions = new[]{"xml"}
+             },
+             new FileFilter
+             {
+                 Name = "Text Files",
+                 Extensions = new[]{"txt"}
+             }
+         } 
+        };
+        var mainWindow = Electron.WindowManager.BrowserWindows.First();
+        filePath = await Electron.Dialog.ShowSaveDialogAsync(mainWindow, options);
+    }
+
+    string[] selectedFiles = new string[0];
+    async Task ShowOpenFileDialogAsync(){
+        var optionsalt = new OpenDialogOptions
+        {
+         Title = "Choose a  file" ,
+         Filters = new []
+         {
+             new FileFilter
+             {
+                 Name = "PDF Files",
+                 Extensions = new string[]{"pdf"}
+             },
+             new FileFilter
+             {
+                 Name = "JSON Files",
+                 Extensions = new string[]{"json"}
+             },
+             new FileFilter
+             {
+                 Name = "XML Files",
+                 Extensions = new string[]{"xml"}
+             },
+             new FileFilter
+             {
+                 Name = "Text Files",
+                 Extensions = new string[]{"txt"}
+             }
+         },
+         Properties = new []
+         {
+             OpenDialogProperty.multiSelections,OpenDialogProperty.showHiddenFiles
+         } 
+        };
+
+        var options = new OpenDialogOptions
+        {
+            Title = "Open Text file",
+            Filters = new FileFilter[]
+            {
+                new FileFilter { Name = "TXT", 
+                    Extensions = new string[] {"txt"} }
+            }
+        };
+        var mainWindow = Electron.WindowManager.BrowserWindows.First();
+        selectedFiles = await Electron.Dialog.ShowOpenDialogAsync(mainWindow, options);
+    }
+}
