@@ -3,13 +3,13 @@
   "splashscreen": {
     "imageFile": ""
   },
-  "name": "BlazorDesktopDemo",
+  "name": "BlazorDesktopDemo22",
   "author": "",
   "singleInstance": false,
   "environment": "Production",
   "build": {
     "appId": "com.BlazorDesktopDemo.app",
-    "productName": "BlazorDesktopDemo",
+    "productName": "BlazorDesktopDemo2",
     "copyright": "Copyright © 2020",
     "buildVersion": "1.0.0",
     "compression": "maximum",
