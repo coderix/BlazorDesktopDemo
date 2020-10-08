@@ -53,6 +53,7 @@
          } 
         };
         var mainWindow = Electron.WindowManager.BrowserWindows.First();
+    
         filePath = await Electron.Dialog.ShowSaveDialogAsync(mainWindow, options);
     }
 
