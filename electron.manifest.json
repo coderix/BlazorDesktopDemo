@@ -9,7 +9,7 @@
   "environment": "Production",
   "build": {
     "appId": "com.BlazorDesktopDemo.app",
-    "productName": "BlazorDesktopDemo2",
+    "productName": "Productname",
     "copyright": "Copyright © 2020",
     "buildVersion": "1.0.0",
     "compression": "maximum",
